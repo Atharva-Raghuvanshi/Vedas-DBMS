@@ -1,0 +1,14 @@
+# credentials - never commit
+.env
+1.env
+
+# python
+venv/
+__pycache__/
+*.pyc
+
+# data (large dataset files)
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
