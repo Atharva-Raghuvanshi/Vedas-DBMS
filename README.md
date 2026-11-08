@@ -135,9 +135,9 @@ Seed data holds 42 Mantras with Sanskrit and IAST text. The optional loader adds
 
 ## Screenshots
 
-| Student search | Permission denied | Lock demo |
+| Student search | Dataset | Lock demo |
 |---|---|---|
-| ![](docs/screenshots/student_search.png) | ![](docs/screenshots/permission_denied.png) | ![](docs/screenshots/lock_demo.png) |
+| ![](docs/screenshots/student_search.png) | ![](docs/screenshots/student_search_dataset.png) | ![](docs/screenshots/lock_demo.png) |
 
 ## Limitations
 
