@@ -1,3 +1,16 @@
+<h1 align="center">Vedas DBMS — Secure Roles. Safe Edits. Searchable Scripture.</h1>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/python-3.12%2B-blue" alt="python">
+  <img src="https://img.shields.io/badge/mysql-8.0-4479A1" alt="mysql">
+  <img src="https://img.shields.io/badge/engine-InnoDB-orange" alt="innodb">
+  <img src="https://img.shields.io/badge/ui-streamlit-FF4B4B" alt="streamlit">
+  <img src="https://img.shields.io/badge/course-CSBB%20204-success" alt="course">
+</p>
+
+<p align="center">
+  A role-based database for a Vedic research library: Veda → Kanda → Sukta → Mantra.
+</p>
 # Vedas Database Management System
 
 A role-based database for a Vedic research library, built for **CSBB 204: Database Management Systems** (B.Tech CSE, 2nd year, 2026-27).
