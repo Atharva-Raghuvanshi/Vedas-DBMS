@@ -6,6 +6,9 @@
   <img src="https://img.shields.io/badge/engine-InnoDB-orange" alt="innodb">
   <img src="https://img.shields.io/badge/ui-streamlit-FF4B4B" alt="streamlit">
   <img src="https://img.shields.io/badge/course-CSBB%20204-success" alt="course">
+  <img src="https://img.shields.io/badge/roles-4-informational" alt="roles">
+<img src="https://img.shields.io/badge/tables-13-lightgrey" alt="tables">
+<img src="https://img.shields.io/badge/license-MIT-green" alt="license">
 </p>
 
 <p align="center">
