@@ -181,6 +181,17 @@ React UI: `docs/screenshots/react_student_search.png` (login + search),
 `docs/screenshots/react_admin_reports.png` (reports with bar charts).
 >>>>>>> a3b93ae (Add Flask API, React frontend with Vedic theme and API tests)
 
+### React UI (Vedic theme)
+
+| Login | Student search |
+|---|---|
+| ![Login page](docs/screenshots/react_login.png) | ![Student search](docs/screenshots/react_student_search.png) |
+
+| My Bookmarks |
+|---|
+| ![My Bookmarks](docs/screenshots/react_bookmarks.png) |
+
+The login page connects to MySQL as the chosen role's own user. The search page reads only through `v_student_mantras` (approved translations only), and bookmarks are listed through `v_student_bookmarks`.
 ## Limitations
 
 - The React login checks the role password through MySQL's hashed storage, but
