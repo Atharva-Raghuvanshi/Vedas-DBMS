@@ -44,7 +44,7 @@ A translation is saved as `pending`. Students only see `approved` translations, 
 
 ## Tech stack
 
-MySQL 8 (InnoDB, utf8mb4) · Python 3.12+ · plain HTML/JavaScript page served by a small Python server · Streamlit (alternative UI)
+MySQL 8 (InnoDB, utf8mb4) · Python 3.12+ · **Flask REST API + React (Vite) SPA with a Vedic theme** · Streamlit (alternative UI)
 
 ## Project structure
 
@@ -59,15 +59,26 @@ vedas-dbms/
 │   ├── 03_roles.sql      4 users + GRANT/REVOKE
 │   ├── 04_seed.sql       sample data with Sanskrit text
 │   ├── 05_queries.sql    19 tracking and report queries
-│   └── 06_concurrency_demo.sql
+│   ├── 06_concurrency_demo.sql
+│   └── 07_react_migration.sql  add-on views for the React UI
+├── backend/              Flask REST API (JSON only)
+│   ├── app.py            create_app + error mapper
+│   ├── db.py             one MySQL connection per request, as {role}_u
+│   ├── auth.py           bearer-token sessions + role gate
+│   ├── errors.py         MySQL errno -> readable message
+│   └── routes/           auth, options, student, scholar, editor, admin
+├── frontend/             React (Vite) SPA, Vedic theme
+│   └── src/
+│       ├── api.js        fetch wrapper (token + errors)
+│       ├── theme.css     parchment / maroon / saffron / gold palette
+│       ├── components/   Layout, MantraCard, Pagination, BarChart
+│       └── pages/        12 pages, one per screen
 ├── scripts/
 │   ├── setup_db.py       builds the database from the SQL files
 │   ├── download_dataset.py
 │   ├── load_data.py      loads a Rigveda subset
-│   └── test_locking.py   proves the locking behaviour
-├── web/
-│   ├── server.py         HTTP server (fixed queries only)
-│   └── index.html        the web page
+│   ├── test_locking.py   proves the locking behaviour
+│   └── test_api.py       98 end-to-end checks of the API
 ├── app/app.py            Streamlit version of the UI
 └── docs/                 ER diagram and screenshots
 ```
@@ -77,7 +88,7 @@ vedas-dbms/
 **Requirements:** Python 3.12+, MySQL 8 (running), Git.
 
 ```bash
-git clone https://github.com/<your-username>/vedas-dbms.git
+git clone https://github.com/Atharva-Raghuvanshi/Vedas-DBMS.git
 cd vedas-dbms
 
 python -m venv venv
@@ -100,17 +111,26 @@ Build the database and load data:
 
 ```bash
 python scripts/setup_db.py         # schema, views, roles, seed data
+mysql -u root -p < sql/07_react_migration.sql   # add-on views for the React UI
 python scripts/download_dataset.py # optional: Rigveda text
 python scripts/load_data.py        # optional: loads a 300-Mantra subset
 ```
 
-Run the web page:
+Run the React UI (two processes):
 
 ```bash
-python web/server.py
+pip install -r backend/requirements.txt      # flask, flask-cors
+python -m flask --app backend.app run --port 5000   # terminal 1: API
+
+cd frontend
+npm install                                   # once
+npm run dev                                   # terminal 2: web page
 ```
 
-Open **http://127.0.0.1:8000**, choose a role and a user ID (1 works). The server listens on this computer only.
+Open **http://localhost:5173**, pick a role and enter the role password
+(the `DB_PASSWORD` from `.env`, `changeme`). The API connects to MySQL **as that
+role's own user**, so the password is checked by MySQL against its hashed storage
+and every GRANT applies.
 
 Alternative UI: `streamlit run app/app.py`
 
@@ -154,10 +174,17 @@ Seed data holds 42 Mantras with Sanskrit and IAST text. The optional loader adds
 | Student search | Dataset | Lock demo |
 |---|---|---|
 | ![](docs/screenshots/student_search.png) | ![](docs/screenshots/student_search_dataset.png) | ![](docs/screenshots/lock_demo.png) |
+<<<<<<< HEAD
+=======
+
+React UI: `docs/screenshots/react_student_search.png` (login + search),
+`docs/screenshots/react_admin_reports.png` (reports with bar charts).
+>>>>>>> a3b93ae (Add Flask API, React frontend with Vedic theme and API tests)
 
 ## Limitations
 
-- The web login is a demo (role plus user ID, no password).
+- The React login checks the role password through MySQL's hashed storage, but
+  accounts are the four shared demo users (no per-student passwords).
 - Loaded Rigveda Mantras have no Sanskrit text.
 - Built to run locally, not hardened for public hosting.
 

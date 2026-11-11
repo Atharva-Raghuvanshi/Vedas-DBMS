@@ -7,8 +7,24 @@ venv/
 __pycache__/
 *.pyc
 
+# react frontend
+frontend/node_modules/
+frontend/dist/
+
 # data (large dataset files)
 data/raw/*
 !data/raw/.gitkeep
 data/processed/*
 !data/processed/.gitkeep
+CLAUDE.md
+AGENTS.md
+.claude/
+.cursor/
+.cursorrules
+prompts/
+echo ".zcode/" >> .gitignore
+echo ".env" >> .gitignore
+echo "node_modules/" >> .gitignore
+echo "frontend/dist/" >> .gitignore
+echo "__pycache__/" >> .gitignore
+echo "venv/" >> .gitignore
